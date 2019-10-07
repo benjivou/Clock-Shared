@@ -1,6 +1,7 @@
 package core;
 
 import handler.DisplayHandler;
+import handler.InputHandler;
 import handler.TimeHandler;
 
 import java.util.HashMap;
@@ -15,6 +16,7 @@ public class Application extends StateThread{
      */
     private HashMap<Integer, DisplayHandler> listOfDisplays;
     private HashMap<Integer, TimeHandler> listOfTime;
+    private InputHandler userInputs;
 
     public Application(){
         super();
@@ -25,5 +27,24 @@ public class Application extends StateThread{
         super.onCreate();
         this.listOfDisplays = new HashMap<>();
         this.listOfTime = new HashMap<>();
+        this.waitingTime =10;
+    }
+
+    @Override
+    protected void onAction() {
+        super.onAction();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // send to every one the message to kill them
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 }
