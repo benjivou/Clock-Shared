@@ -8,7 +8,7 @@ import java.util.HashMap;
 /**
  * The core of the subject it control everything in the APP
  */
-public class Application implements Runnable{
+public class Application extends StateThread{
 
     /*
      List of Handlers
@@ -17,11 +17,13 @@ public class Application implements Runnable{
     private HashMap<Integer, TimeHandler> listOfTime;
 
     public Application(){
-
+        super();
     }
 
     @Override
-    public void run() {
-
+    protected void onCreate() {
+        super.onCreate();
+        this.listOfDisplays = new HashMap<>();
+        this.listOfTime = new HashMap<>();
     }
 }

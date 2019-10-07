@@ -3,9 +3,18 @@ package core;
 import handler.message.AdminMsg;
 
 public abstract class StateThread implements Runnable{
-    public static final long WAITING_TIME=100;      // waiting time use in the onPause state
+    public static final long WAITING_TIME=100;      // waiting time use by default in the onPause state
+
+
+    protected static String CLASSNAME = "StateThread";
+
     protected boolean work; // say if the handler is Actually Running
     protected long waitingTime = WAITING_TIME; // by default it's 0.1sec
+
+    protected StateThread(){
+        this.onCreate();
+    }
+
     /**
      * States
      */
@@ -23,21 +32,25 @@ public abstract class StateThread implements Runnable{
      */
     // when U create the handler
     protected void onCreate(){
+        System.out.println("onCreate" + CLASSNAME);
         this.work = true;
     };
 
     // the acction to reapeat during the execution
     protected void onAction(){
+        System.out.println("onAction" + CLASSNAME);
 
     }
 
     // when U should end you work
     protected void onDestroy(){
+        System.out.println("onDestroy"+ CLASSNAME);
         this.work = false;
     };
 
     // When U wait before checking
     protected void onPause(){
+        System.out.println("onPause"+ CLASSNAME);
         try {
             Thread.sleep(this.waitingTime);
         } catch (InterruptedException e) {

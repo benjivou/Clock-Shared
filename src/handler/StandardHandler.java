@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class StandardHandler extends StateThread {
     public static final String NONE_RETURN="none";  // Anything to read
 
+    protected static String CLASSNAME = "StandardHandler";
 
     protected ConcurrentLinkedQueue<AdminMsg> sudoInputCommand,sudoOutputCommand; // Channel to administration messages with the App
 
@@ -26,7 +27,10 @@ public class StandardHandler extends StateThread {
         this.inputsUtil = new ConcurrentLinkedQueue<String>() ;
         this.outputUtil = new ConcurrentLinkedQueue<String>() ;
 
+
+
         onCreate();
+
         new Thread(this).start();
     }
 
