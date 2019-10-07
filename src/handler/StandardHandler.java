@@ -1,13 +1,15 @@
 package handler;
 
 
+import core.StateThread;
 import handler.message.AdminMsg;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class StandardHandler implements Runnable {
-    public static final String NONE_RETURN="none"; // Anything to read
+public class StandardHandler extends StateThread {
+    public static final String NONE_RETURN="none";  // Anything to read
+
 
     protected ConcurrentLinkedQueue<AdminMsg> sudoInputCommand,sudoOutputCommand; // Channel to administration messages with the App
 
@@ -15,6 +17,7 @@ public class StandardHandler implements Runnable {
     Channel to exchange data infos like serilazed TimeHandlers  objects between the Application and the TimeHandler
     */
    protected ConcurrentLinkedQueue<String> inputsUtil,outputUtil;
+
 
     public StandardHandler() {
         this.sudoInputCommand = new ConcurrentLinkedQueue<AdminMsg>();
@@ -74,23 +77,22 @@ public class StandardHandler implements Runnable {
 
 
     @Override
-    public void run() {
+    protected void onAction() {
+        super.onAction();
 
-        if (this.inputsUtil.size()>0){
+        if(this.inputsUtil.size() >0){
             onMsgReceive();
         }
 
         if (this.sudoInputCommand.size()>0){
             onSudoRequest();
         }
-
     }
 
     /**
-     * States
+     * Special States
      */
-    // when U create the handler
-    protected void onCreate(){};
+
 
     // When U receive a message
     protected void onMsgReceive(){};
@@ -102,6 +104,6 @@ public class StandardHandler implements Runnable {
             onDestroy();
         }
     };
-    // when U should end you work
-    protected void onDestroy(){};
+
+
 }
