@@ -1,4 +1,4 @@
 package handler;
 
-public class DisplayHandler {
+public class DisplayHandler extends StandardHandler {
 }

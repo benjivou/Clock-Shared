@@ -1,4 +1,4 @@
 package handler;
 
-public class InputHandler {
+public class InputHandler extends StandardHandler{
 }

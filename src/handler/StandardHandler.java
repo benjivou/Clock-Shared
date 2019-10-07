@@ -22,6 +22,9 @@ public class StandardHandler implements Runnable {
 
         this.inputsUtil = new ConcurrentLinkedQueue<String>() ;
         this.outputUtil = new ConcurrentLinkedQueue<String>() ;
+
+        onCreate();
+        new Thread(this).start();
     }
 
     /**
@@ -73,5 +76,32 @@ public class StandardHandler implements Runnable {
     @Override
     public void run() {
 
+        if (this.inputsUtil.size()>0){
+            onMsgReceive();
+        }
+
+        if (this.sudoInputCommand.size()>0){
+            onSudoRequest();
+        }
+
     }
+
+    /**
+     * States
+     */
+    // when U create the handler
+    protected void onCreate(){};
+
+    // When U receive a message
+    protected void onMsgReceive(){};
+
+    // When U receipt a command
+    protected void onSudoRequest(){
+        // if U receive a message of stop
+        if(this.sudoInputCommand.peek().equals(AdminMsg.OFF) ){
+            onDestroy();
+        }
+    };
+    // when U should end you work
+    protected void onDestroy(){};
 }
