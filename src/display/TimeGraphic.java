@@ -57,22 +57,6 @@ public class TimeGraphic {
 		
 		window.setVisible(true);
 		
-		
-		
-		
-		/*lblLocalDateTime = new JLabel("LocalDateTime");
-		// lblLocalDateTime.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblLocalDateTime.setBounds(200, 88, 241, 23);
-		int realHours = (clocking.getRealTime()).getHour();
-		int realMinutes = (clocking.getRealTime()).getMinute();
-		int roundedHours = (clocking.getRoundedTime()).getHour();
-		int roundedMinutes = (clocking.getRoundedTime()).getMinute();
-		lblLocalDateTime.setText(Integer.toString(realHours) + ":"
-				+ Integer.toString(realMinutes) + " ... let's say "
-				+ Integer.toString(roundedHours) + ":"
-				+ Integer.toString(roundedMinutes));
-		getContentPane().add(lblLocalDateTime);*/
-		
 
 	}
 	
