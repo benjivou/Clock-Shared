@@ -7,10 +7,21 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class TimeGraphic {
+public class TimeGraphic implements DisplayTime  {
 
 	public static void main(String[] args) {
 		
+		TimeGraphic tmp = new TimeGraphic();
+		tmp.displayTime(LocalTime.now());
+
+	}
+	
+	
+	/**
+	 * @param hour the hour to display
+	 */
+	public void displayTime(LocalTime hour)
+	{
 		JFrame window = new JFrame();
 		
 
@@ -25,28 +36,24 @@ public class TimeGraphic {
 		JLabel jlabel = new JLabel("LocalTime");
 		//jlabel.setBounds(200, 88, 241, 23);
 		
-		//test
-		/*jlabel.setText(Integer.toString(LocalTime.now().getHour()) + ":" + 
-		Integer.toString(LocalTime.now().getMinute()) + ":"
-				+Integer.toString(LocalTime.now().getSecond()));*/
 		
 		//method 1
-		/*jlabel.setText(Integer.toString(LocalTime.now().getHour()) + "h" + 
-		Integer.toString(LocalTime.now().getMinute()));*/
+		/*jlabel.setText(Integer.toString(hour.getHour()) + "h" + 
+		Integer.toString(hour.getMinute()));*/
 		
 		
 		//method 2
-		if(LocalTime.now().getHour() >= 0 && LocalTime.now().getHour() <= 12)
+		if(hour.getHour() >= 0 && hour.getHour() <= 12)
 		{
-			jlabel.setText(Integer.toString(LocalTime.now().getHour()) + "am" + ":" +
-					Integer.toString(LocalTime.now().getMinute()) + " "
-							+Integer.toString(LocalTime.now().getSecond()) + "s");
+			jlabel.setText(Integer.toString(hour.getHour()) + "am" + ":" +
+					Integer.toString(hour.getMinute()) + " "
+							+Integer.toString(hour.getSecond()) + "s");
 		}
 		else
 		{
-			jlabel.setText(Integer.toString(LocalTime.now().getHour() - 12) + "pm" + ":" +
-					Integer.toString(LocalTime.now().getMinute()) + " "
-							+Integer.toString(LocalTime.now().getSecond()) + "s");
+			jlabel.setText(Integer.toString(hour.getHour() - 12) + "pm" + ":" +
+					Integer.toString(hour.getMinute()) + " "
+							+Integer.toString(hour.getSecond()) + "s");
 		}
 		
 		//couleur
@@ -56,23 +63,6 @@ public class TimeGraphic {
 		jpanel.add(jlabel);
 		
 		window.setVisible(true);
-		
-
 	}
-	
-	/*public void DisplayTime(LocalTime hour)
-	{
-		JFrame window = new JFrame();
-		window.setVisible(true);
-
-		window.setSize(400,100);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		JPanel jpanel = new JPanel();
-		window.setContentPane(jpanel);
-
-		JLabel jlabel = new JLabel();
-		jpanel.add(jlabel);
-	}*/
 
 }
