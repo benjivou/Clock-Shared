@@ -12,6 +12,8 @@ public class TimeHandler extends HandlerAbstract {
         super();
         this.waitingTime = waitTime;
         this.mode = mode;
+        System.out.println("TimeHandler created");
+
     }
 
     @Override

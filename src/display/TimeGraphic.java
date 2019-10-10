@@ -1,5 +1,7 @@
 package display;
 
+import handler.message.Language;
+
 import java.awt.Color;
 import java.time.LocalTime;
 
@@ -23,12 +25,12 @@ public class TimeGraphic implements DisplayTime  {
 		double time = 9000000000.0;	//time before close the window
 		
 		TimeGraphic tmp = new TimeGraphic();
-		tmp.displayTime(LocalTime.now(), 1);
+		tmp.displayTime(LocalTime.now(), Language.EN);
 		
 		long start=System.nanoTime(); 
 		while((System.nanoTime() - start) < time)
 		{
-			tmp.refreshTime(LocalTime.now(), 1);
+			tmp.refreshTime(LocalTime.now(), Language.EN);
 		}
 		
 		tmp.closeWindow(tmp.window);
@@ -103,27 +105,28 @@ public class TimeGraphic implements DisplayTime  {
 	/**
 	 * refresh the hour
 	 * @param hour
-	 * @param Id
+	 * @param lg
 	 */
-	public void refreshTime(LocalTime hour, int Id)
+	public void refreshTime(LocalTime hour, Language lg)
 	{
-		displayTime(hour, Id);
+		displayTime(hour, lg);
 	}
 	
 	
 	/**
 	 * @param hour the hour to display
+	 * @param lg
 	 */
-	public void displayTime(LocalTime hour, int Id)
+	public void displayTime(LocalTime hour, Language lg)
 	{
-		if(Id == 0)	//method 1
+		if(lg == Language.FR)	//method 1
 		{
 			jlabel.setText(Integer.toString(hour.getHour()) + "h" + 
 			Integer.toString(hour.getMinute()));
 		}
 		
 		
-		if(Id == 1)	//method 2
+		if(lg == Language.EN)	//method 2
 		{
 			if(hour.getHour() >= 0 && hour.getHour() <= 12)
 			{

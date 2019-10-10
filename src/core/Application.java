@@ -5,6 +5,9 @@ import handler.DisplayHandler;
 import handler.InputHandler;
 import handler.TimeHandler;
 import handler.message.AdminMsg;
+import handler.message.ClockMode;
+import handler.message.FromMode;
+import handler.message.Language;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +16,7 @@ import java.util.Map;
  * The core of the subject it control everything in the APP
  */
 public class Application extends AppAbstract {
-
+    private static int id ;
     /*
      List of Handlers
      */
@@ -50,16 +53,26 @@ public class Application extends AppAbstract {
         }
     }
 
-    public void addClock(){
-
+    public void addClock(ClockMode cl, Language lg, long waitingTime, FromMode fromMode){
+        this.listOfDisplays.put(id,new DisplayHandler(cl,lg));
+        this.listOfTime.put(id,new TimeHandler(waitingTime,fromMode));
+        id++;
     }
+
+    public static void main(String[]Args){
+        new Thread(new Application()).start();
+    }
+
 
     @Override
     protected void onCreate() {
         super.onCreate();
+        id = 0;
         this.listOfDisplays = new HashMap<>();
         this.listOfTime = new HashMap<>();
         this.waitingTime =10;
+
+        addClock(ClockMode.CMD,Language.FR,1000,FromMode.SYSTEM );
     }
 
     @Override

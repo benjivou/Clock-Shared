@@ -34,25 +34,25 @@ public abstract class StateAbstract implements Runnable{
      */
     // when U create the handler
     protected void onCreate(){
-        System.out.println("onCreate" + CLASSNAME);
+        //System.out.println("onCreate" + CLASSNAME);
         this.work = true;
     };
 
     // the acction to reapeat during the execution
     protected void onAction(){
-        System.out.println("onAction" + CLASSNAME);
+        //System.out.println("onAction" + CLASSNAME);
 
     }
 
     // when U should end you work
     protected void onDestroy(){
-        System.out.println("onDestroy"+ CLASSNAME);
+        //System.out.println("onDestroy"+ CLASSNAME);
         this.work = false;
     };
 
     // When U wait before checking
     protected void onPause(){
-        System.out.println("onPause"+ CLASSNAME);
+       // System.out.println("onPause"+ CLASSNAME);
         try {
             Thread.sleep(this.waitingTime);
         } catch (InterruptedException e) {

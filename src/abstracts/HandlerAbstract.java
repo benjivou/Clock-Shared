@@ -22,17 +22,23 @@ public abstract class HandlerAbstract extends StateAbstract {
     // TODO
 
     public HandlerAbstract() {
-        this.sudoInputCommand = new ConcurrentLinkedQueue<AdminMsg>();
-        this.sudoOutputCommand = new ConcurrentLinkedQueue<AdminMsg>();
 
-        this.inputsUtil = new ConcurrentLinkedQueue<Object>() ;
-        this.outputUtil = new ConcurrentLinkedQueue<Object>() ;
 
 
 
         onCreate();
 
         new Thread(this).start();
+    }
+
+    @Override
+    protected void onCreate() {
+        super.onCreate();
+        this.sudoInputCommand = new ConcurrentLinkedQueue<AdminMsg>();
+        this.sudoOutputCommand = new ConcurrentLinkedQueue<AdminMsg>();
+
+        this.inputsUtil = new ConcurrentLinkedQueue<Object>() ;
+        this.outputUtil = new ConcurrentLinkedQueue<Object>() ;
     }
 
     /**
@@ -135,7 +141,7 @@ public abstract class HandlerAbstract extends StateAbstract {
         }
 
         if (this.sudoInputCommand.size()>0){
-            onSudoRequest();
+            onSudoRequest(this.sudoInputCommand.peek());
         }
     }
 
@@ -148,10 +154,13 @@ public abstract class HandlerAbstract extends StateAbstract {
     protected void onMsgReceive(){};
 
     // When U receipt a command
-    protected void onSudoRequest(){
+    protected void onSudoRequest(AdminMsg msg){
         // if U receive a message of stop
-        if(this.sudoInputCommand.peek().equals(AdminMsg.OFF) ){
+        if(msg.equals(AdminMsg.OFF) ){
             finalizeThread();
+        }
+        if(msg.equals(AdminMsg.CONTINUE)){
+            this.lastAdvertise = LocalTime.now();
         }
     };
 
