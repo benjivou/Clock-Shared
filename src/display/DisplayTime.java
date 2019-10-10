@@ -12,7 +12,14 @@ public interface DisplayTime {
 	 * @brief display the hour
 	 * @param hour the hour to display
 	 */
-	public void displayTime(LocalTime hour);
+	public void displayTime(LocalTime hour, int Id);
+	
+	/**
+	 * 
+	 * @param hour
+	 * @param Id
+	 */
+	public void refreshTime(LocalTime hour, int Id);
 	
 	
 }
