@@ -2,7 +2,7 @@ package core;
 
 import handler.message.AdminMsg;
 
-public abstract class StateThread implements Runnable{
+public abstract class StateAbstract implements Runnable{
     public static final long WAITING_TIME=100;      // waiting time use by default in the onPause state
 
 
@@ -11,7 +11,7 @@ public abstract class StateThread implements Runnable{
     protected boolean work; // say if the handler is Actually Running
     protected long waitingTime = WAITING_TIME; // by default it's 0.1sec
 
-    protected StateThread(){
+    protected StateAbstract(){
         this.onCreate();
     }
 

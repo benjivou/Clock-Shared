@@ -1,13 +1,12 @@
 package handler;
 
 
-import core.StateThread;
+import core.StateAbstract;
 import handler.message.AdminMsg;
 
-import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class StandardHandler extends StateThread {
+public abstract class StandardHandler extends StateAbstract {
     public static final String NONE_RETURN="none";  // Anything to read
 
     protected static String CLASSNAME = "StandardHandler";
@@ -75,7 +74,7 @@ public class StandardHandler extends StateThread {
      * Offer the possibility the Admin to send a request for usage
      * @param msg
      */
-    public void sendAdminCommand(String msg){
+    public void sendUtilCommand(String msg){
         this.inputsUtil.add(msg);
     }
 
