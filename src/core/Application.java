@@ -3,6 +3,7 @@ package core;
 import handler.DisplayHandler;
 import handler.InputHandler;
 import handler.TimeHandler;
+import handler.message.AdminMsg;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +11,7 @@ import java.util.Map;
 /**
  * The core of the subject it control everything in the APP
  */
-public class Application extends StateAbstract {
+public class Application extends AppAbstract {
 
     /*
      List of Handlers
@@ -46,15 +47,6 @@ public class Application extends StateAbstract {
     }
 
 
-    /**
-     * Send a message to the displayId
-     * @param msg
-     * @param displayId
-     */
-    private void sendToDisplay(String msg, int displayId){
-         DisplayHandler displayHandler = this.listOfDisplays.get(displayId);
-         displayHandler.sendUtilCommand(msg);
-    }
     @Override
     protected void onCreate() {
         super.onCreate();
@@ -64,16 +56,27 @@ public class Application extends StateAbstract {
     }
 
     @Override
-    protected void onAction() {
-        super.onAction();
+    protected void onRoutineUtil() {
+        super.onRoutineUtil();
+
+        // Catch all Hoours U have
+        routineTimeToDisplay();
+
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        // send to everyone the message to kill them
-
+    protected void onAdminInputs(AdminMsg msg) {
+        super.onAdminInputs(msg);
+        switch (msg){
+            case OFF:
+                // go to onDestroy statement
+                this.work = false;
+                break;
+            case ON:
+                break;
+            case WAIT:
+                break;
+        }
     }
 
     @Override
