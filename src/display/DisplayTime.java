@@ -1,3 +1,4 @@
+public interface DisplayTime {
 package display;
 
 import java.time.LocalTime;
