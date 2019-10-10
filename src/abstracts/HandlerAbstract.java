@@ -3,6 +3,8 @@ package abstracts;
 
 import handler.message.AdminMsg;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class HandlerAbstract extends StateAbstract {
@@ -10,21 +12,21 @@ public abstract class HandlerAbstract extends StateAbstract {
 
     protected static String CLASSNAME = "StandardHandler";
 
-    protected ConcurrentLinkedQueue<AdminMsg> sudoInputCommand,sudoOutputCommand; // Channel to administration messages with the App
+    private ConcurrentLinkedQueue<AdminMsg> sudoInputCommand,sudoOutputCommand; // Channel to administration messages with the App
 
    /*
     Channel to exchange data infos like serialized TimeHandlers  objects between the Application and the TimeHandler
     */
-   protected ConcurrentLinkedQueue<String> inputsUtil,outputUtil;
-    // input : The handler read the message
-    // output : the handler send the message
+    private ConcurrentLinkedQueue<Object> inputsUtil,outputUtil;
+    private LocalTime lastAdvertise; // the last time You receive the message to continue
+    // TODO
 
     public HandlerAbstract() {
         this.sudoInputCommand = new ConcurrentLinkedQueue<AdminMsg>();
         this.sudoOutputCommand = new ConcurrentLinkedQueue<AdminMsg>();
 
-        this.inputsUtil = new ConcurrentLinkedQueue<String>() ;
-        this.outputUtil = new ConcurrentLinkedQueue<String>() ;
+        this.inputsUtil = new ConcurrentLinkedQueue<Object>() ;
+        this.outputUtil = new ConcurrentLinkedQueue<Object>() ;
 
 
 
@@ -34,17 +36,24 @@ public abstract class HandlerAbstract extends StateAbstract {
     }
 
     /**
-     * Offer the possibility the Admin to send a message
+     * Admin to send a message
      * @param msg
      */
-    public void sendAdminCommand(AdminMsg msg){
+    public void sendAdminCommandA(AdminMsg msg){
         this.sudoInputCommand.add(msg);
+    }
+    /**
+     * Handler send an Admin message
+     * @param msg
+     */
+    protected void sendAdminCommandH(AdminMsg msg){
+        this.sudoOutputCommand.add(msg);
     }
 
     /**
-     * This offer to the App the possibility to read the Acknowledge if necessary
+     * Admin read command admin message
      */
-    public AdminMsg readAdminCommand() throws Exception {
+    public AdminMsg readAdminCommandA() throws Exception {
 
         // U have nothing to read
         if(this.sudoOutputCommand.size() == 0){
@@ -57,9 +66,24 @@ public abstract class HandlerAbstract extends StateAbstract {
     }
 
     /**
-     * This offer to the App the possibility to read the Object request to handlers
+     * Handler read command admin message
      */
-    public String readUtilCommand() throws Exception {
+    protected AdminMsg readAdminCommandH() throws Exception {
+
+        // U have nothing to read
+        if(this.sudoInputCommand.size() == 0){
+            throw new Exception(NONE_RETURN);
+        }
+
+        // return msg
+        return this.sudoInputCommand.poll();
+
+    }
+
+    /**
+     * Admin read the Object canal
+     */
+    public Object readUtilCommandA() throws Exception {
         // U have nothing to read
         if(this.outputUtil.size() == 0){
             throw new Exception(NONE_RETURN);
@@ -71,11 +95,34 @@ public abstract class HandlerAbstract extends StateAbstract {
     }
 
     /**
-     * Offer the possibility the Admin to send a request for usage
+     * Handler read the Object canal
+     */
+    protected Object readUtilCommandH() throws Exception {
+        // U have nothing to read
+        if(this.outputUtil.size() == 0){
+            throw new Exception(NONE_RETURN);
+        }
+
+        // return msg
+        return this.outputUtil.poll();
+
+    }
+
+
+    /**
+     * Admin send a message
      * @param msg
      */
-    public void sendUtilCommand(String msg){
+    public void sendUtilCommandA(Object msg){
         this.inputsUtil.add(msg);
+    }
+
+    /**
+     * Handler send a message
+     * @param msg
+     */
+    protected void sendUtilCommandH(Object msg){
+        this.outputUtil.add(msg);
     }
 
 

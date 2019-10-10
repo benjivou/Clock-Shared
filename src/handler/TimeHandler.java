@@ -3,6 +3,8 @@ package handler;
 import abstracts.HandlerAbstract;
 import handler.message.FromMode;
 
+import static timecatcher.TimeCatcher.getTimeLocal;
+
 public class TimeHandler extends HandlerAbstract {
     private FromMode mode;
 
@@ -15,6 +17,15 @@ public class TimeHandler extends HandlerAbstract {
     @Override
     protected void onAction() {
         super.onAction();
-    // TO-DO
+
+        // it depend of the mode selected before
+        switch (this.mode){
+            case SYSTEM:
+                sendUtilCommandH(getTimeLocal());
+                break;
+            default:
+                System.err.println("Undefined Mode");
+        }
+
     }
 }

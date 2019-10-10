@@ -30,7 +30,7 @@ public class Application extends AppAbstract {
      */
     public void routineTimeToDisplay(){
         TimeHandler timeHandler;
-        String msg;
+        Object obj;
         Integer targetId;
 
         // read all elements
@@ -38,11 +38,11 @@ public class Application extends AppAbstract {
             timeHandler = (TimeHandler) entryTime.getValue();
             try {
                 // catch the msg
-                msg = timeHandler.readUtilCommand();
+                obj = timeHandler.readUtilCommandA();
 
                 // resend the message
                 targetId = (Integer) entryTime.getKey();
-                sendToDisplay(msg,targetId.intValue());
+                sendToDisplay(obj,targetId.intValue());
             } catch (Exception e) {
                 // Do nothing because there is nothing for U
             }
