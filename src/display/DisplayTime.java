@@ -1,7 +1,7 @@
-public interface DisplayTime {
 package display;
 
 import java.time.LocalTime;
+
 
 /**
  * interface with various methods to display time
