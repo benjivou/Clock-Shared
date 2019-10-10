@@ -1,4 +1,6 @@
 package handler;
 
-public class InputHandler extends StandardHandler{
+import abstracts.HandlerAbstract;
+
+public class InputHandler extends HandlerAbstract {
 }

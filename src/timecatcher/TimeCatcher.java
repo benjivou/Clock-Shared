@@ -1,7 +1,9 @@
 package timecatcher;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
+
 
 /**
  * get the hour with various methods
@@ -9,23 +11,18 @@ import java.time.ZoneId;
 public class TimeCatcher {
 
 	private LocalTime hour;
-	private int ID;
+	private int id;
 
 	
-	public TimeCatcher() {
-		super();
-	}
-	
-	
-	public TimeCatcher(int iD) {
-		super();
-		ID = iD;
+	public TimeCatcher(int id) {
+		this.hour = LocalTime.now();
+		id = id;
 	}
 
 
 	public LocalTime getSystemHour()
 	{
-		return LocalTime.now();
+		return this.hour;
 	}
 	
 	public LocalTime getTimeZoneHour(ZoneId zone)

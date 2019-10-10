@@ -1,10 +1,8 @@
 package handler;
 
-import handler.message.AdminMsg;
+import abstracts.HandlerAbstract;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
-
-public class TimeHandler extends StandardHandler{
+public class TimeHandler extends HandlerAbstract {
 
 
     public TimeHandler() {

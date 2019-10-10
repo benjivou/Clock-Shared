@@ -1,8 +1,7 @@
-package core;
+package abstracts;
 
 import handler.DisplayHandler;
 import handler.InputHandler;
-import handler.StandardHandler;
 import handler.TimeHandler;
 import handler.message.AdminMsg;
 
@@ -21,12 +20,12 @@ public abstract class AppAbstract extends StateAbstract {
     protected void onAction() {
         super.onAction();
         onRoutineAdmin();
-        onRoutineUtil();
     }
 
-    protected void onRoutineUtil() {
-    }
 
+    /**
+     * this state listen to handlers messages
+     */
     protected void onRoutineAdmin(){
         try {
             // if U have something to do
@@ -35,12 +34,17 @@ public abstract class AppAbstract extends StateAbstract {
             e.printStackTrace();
         }
     }
+
+    /**
+     * When U get a message from the user
+     * @param msg
+     */
     protected void onAdminInputs(AdminMsg msg){
 
     }
 
     /**
-     * Send a message to the displayId
+     * Send a message to the the good display thread
      * @param msg
      * @param displayId
      */
@@ -53,20 +57,20 @@ public abstract class AppAbstract extends StateAbstract {
     protected void onDestroy() {
         super.onDestroy();
 
-        StandardHandler handler;
+        HandlerAbstract handler;
         DisplayHandler displayHandler;
 
 
         // send to everyone the message to kill them
         // time
         for (Map.Entry entryTime : this.listOfTime.entrySet()){
-            handler = (StandardHandler) entryTime.getValue();
+            handler = (HandlerAbstract) entryTime.getValue();
             handler.sendAdminCommand(AdminMsg.OFF);
         }
 
         // Display
         for (Map.Entry entryTime : this.listOfDisplays.entrySet()){
-            handler = (StandardHandler) entryTime.getValue();
+            handler = (HandlerAbstract) entryTime.getValue();
             handler.sendAdminCommand(AdminMsg.OFF);
         }
 

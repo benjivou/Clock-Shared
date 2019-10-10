@@ -1,5 +1,6 @@
 package core;
 
+import abstracts.AppAbstract;
 import handler.DisplayHandler;
 import handler.InputHandler;
 import handler.TimeHandler;
@@ -49,6 +50,9 @@ public class Application extends AppAbstract {
         }
     }
 
+    public void addClock(){
+
+    }
 
     @Override
     protected void onCreate() {
@@ -59,10 +63,10 @@ public class Application extends AppAbstract {
     }
 
     @Override
-    protected void onRoutineUtil() {
-        super.onRoutineUtil();
+    protected void onAction() {
+        super.onAction();
 
-        // Catch all Hours U have
+        // Catch all Hours U receive
         routineTimeToDisplay();
 
     }

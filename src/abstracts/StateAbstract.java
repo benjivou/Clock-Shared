@@ -1,4 +1,4 @@
-package core;
+package abstracts;
 
 import handler.message.AdminMsg;
 

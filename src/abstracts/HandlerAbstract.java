@@ -1,12 +1,11 @@
-package handler;
+package abstracts;
 
 
-import core.StateAbstract;
 import handler.message.AdminMsg;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public abstract class StandardHandler extends StateAbstract {
+public abstract class HandlerAbstract extends StateAbstract {
     public static final String NONE_RETURN="none";  // Anything to read
 
     protected static String CLASSNAME = "StandardHandler";
@@ -14,12 +13,12 @@ public abstract class StandardHandler extends StateAbstract {
     protected ConcurrentLinkedQueue<AdminMsg> sudoInputCommand,sudoOutputCommand; // Channel to administration messages with the App
 
    /*
-    Channel to exchange data infos like serilazed TimeHandlers  objects between the Application and the TimeHandler
+    Channel to exchange data infos like serialized TimeHandlers  objects between the Application and the TimeHandler
     */
    protected ConcurrentLinkedQueue<String> inputsUtil,outputUtil;
 
 
-    public StandardHandler() {
+    public HandlerAbstract() {
         this.sudoInputCommand = new ConcurrentLinkedQueue<AdminMsg>();
         this.sudoOutputCommand = new ConcurrentLinkedQueue<AdminMsg>();
 
