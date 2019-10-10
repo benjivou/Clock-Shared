@@ -1,18 +1,20 @@
 package handler;
 
 import abstracts.HandlerAbstract;
+import handler.message.FromMode;
 
 public class TimeHandler extends HandlerAbstract {
-    private int idTarget;
+    private FromMode mode;
 
-    public TimeHandler(long waitTime, int idTarget) {
+    public TimeHandler(long waitTime, FromMode mode) {
         super();
         this.waitingTime = waitTime;
-        this.idTarget = idTarget;
+        this.mode = mode;
     }
 
     @Override
     protected void onAction() {
         super.onAction();
+    // TO-DO
     }
 }

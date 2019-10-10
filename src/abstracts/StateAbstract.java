@@ -13,6 +13,7 @@ public abstract class StateAbstract implements Runnable{
 
     protected StateAbstract(){
         this.onCreate();
+        new Thread(this).start();
     }
 
     /**
@@ -24,6 +25,7 @@ public abstract class StateAbstract implements Runnable{
             onAction();
             onPause();
         }
+        onDestroy();
 
     }
 

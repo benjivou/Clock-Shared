@@ -10,24 +10,9 @@ import java.time.ZoneId;
  */
 public class TimeCatcher {
 
-	private LocalTime hour;
-	private int id;
-
-	
-	public TimeCatcher(int id) {
-		this.hour = LocalTime.now();
-		id = id;
-	}
-
-
-	public LocalTime getSystemHour()
+	public static LocalTime getTimeLocal()
 	{
-		return this.hour;
-	}
-	
-	public LocalTime getTimeZoneHour(ZoneId zone)
-	{
-		return LocalTime.now(zone);
+		return LocalTime.now();
 	}
 	
 }

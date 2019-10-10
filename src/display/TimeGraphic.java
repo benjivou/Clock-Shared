@@ -9,6 +9,11 @@ import javax.swing.JPanel;
 
 public class TimeGraphic implements DisplayTime  {
 
+	// Aouter constructeur de fenêtre
+	// une fonction de rafraichissement ( en entrée LocalTime )
+	// une méthode pour s'éteindre
+
+
 	public static void main(String[] args) {
 		
 		TimeGraphic tmp = new TimeGraphic();

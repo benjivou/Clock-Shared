@@ -16,7 +16,8 @@ public abstract class HandlerAbstract extends StateAbstract {
     Channel to exchange data infos like serialized TimeHandlers  objects between the Application and the TimeHandler
     */
    protected ConcurrentLinkedQueue<String> inputsUtil,outputUtil;
-
+    // input : The handler read the message
+    // output : the handler send the message
 
     public HandlerAbstract() {
         this.sudoInputCommand = new ConcurrentLinkedQueue<AdminMsg>();
