@@ -24,6 +24,9 @@ public class Application extends AppAbstract {
         super();
     }
 
+    /**
+     * Describe what we should do to catch the time and send it to the display app
+     */
     public void routineTimeToDisplay(){
         TimeHandler timeHandler;
         String msg;
@@ -59,7 +62,7 @@ public class Application extends AppAbstract {
     protected void onRoutineUtil() {
         super.onRoutineUtil();
 
-        // Catch all Hoours U have
+        // Catch all Hours U have
         routineTimeToDisplay();
 
     }
@@ -70,7 +73,7 @@ public class Application extends AppAbstract {
         switch (msg){
             case OFF:
                 // go to onDestroy statement
-                this.work = false;
+                finalizeThread();
                 break;
             case ON:
                 break;
@@ -79,8 +82,4 @@ public class Application extends AppAbstract {
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
 }

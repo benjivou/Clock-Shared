@@ -104,7 +104,7 @@ public abstract class StandardHandler extends StateAbstract {
     protected void onSudoRequest(){
         // if U receive a message of stop
         if(this.sudoInputCommand.peek().equals(AdminMsg.OFF) ){
-            onDestroy();
+            finalizeThread();
         }
     };
 

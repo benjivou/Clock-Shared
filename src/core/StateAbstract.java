@@ -8,7 +8,7 @@ public abstract class StateAbstract implements Runnable{
 
     protected static String CLASSNAME = "StateThread";
 
-    protected boolean work; // say if the handler is Actually Running
+    private boolean work; // say if the handler is Actually Running
     protected long waitingTime = WAITING_TIME; // by default it's 0.1sec
 
     protected StateAbstract(){
@@ -57,5 +57,10 @@ public abstract class StateAbstract implements Runnable{
             // Normally It should never append
             e.printStackTrace();
         }
+    }
+
+    // go to the on Destroy statment;
+    protected void finalizeThread(){
+        this.work =false;
     }
 }
