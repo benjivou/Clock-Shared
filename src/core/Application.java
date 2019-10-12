@@ -58,8 +58,8 @@ public class Application extends AppAbstract {
         }
     }
 
-    public void addClock(ClockMode cl, Language lg, long waitingTime, FromMode fromMode){
-        this.listOfDisplays.put(id,new DisplayHandler(cl,lg));
+    public void addClock(ClockMode cl, Language lg, long waitingTime, FromMode fromMode,String name){
+        this.listOfDisplays.put(id,new DisplayHandler(cl,lg,name));
         this.listOfTime.put(id,new TimeHandler(waitingTime,fromMode));
         id++;
 
@@ -81,7 +81,8 @@ public class Application extends AppAbstract {
         this.listOfTime = new HashMap<>();
         this.waitingTime =10;
 
-        addClock(ClockMode.CMD,Language.FR,100,FromMode.SYSTEM );
+        addClock(ClockMode.CMD,Language.FR,60000,FromMode.SYSTEM,"French_Clock" );
+        addClock(ClockMode.CMD,Language.EN,1000,FromMode.SYSTEM,"English_Clock");
         // waiting initialization of the different handler
 
     }

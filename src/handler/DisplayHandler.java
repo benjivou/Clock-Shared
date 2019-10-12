@@ -14,11 +14,13 @@ public class DisplayHandler extends HandlerAbstract {
     private ClockMode clockMode;
     private Language language;
     private DisplayTime timeGraphic;
+    private String name;
 
-    public DisplayHandler(ClockMode clockMode, Language language){
+    public DisplayHandler(ClockMode clockMode, Language language, String name){
         super();
         this.clockMode = clockMode;
         this.language = language;
+        this.name = name;
 
         // if We need a graphic Panel
         switch (this.clockMode ){
@@ -53,7 +55,7 @@ public class DisplayHandler extends HandlerAbstract {
    //     System.out.println("Local time received to display");
         // retrieve message from the queue
         LocalTime lt  =(LocalTime)obj;
-        System.out.println(lt);
+        System.out.print(this.name + " : ");
 
         switch (this.clockMode){
             case GRAPHIC:
