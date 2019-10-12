@@ -5,32 +5,35 @@ import handler.DisplayHandler;
 import handler.InputHandler;
 import handler.TimeHandler;
 import handler.message.AdminMsg;
+import handler.message.ClockMode;
+import handler.message.FromMode;
+import handler.message.Language;
 
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
+
+import static abstracts.HandlerAbstract.NONE_RETURN;
 
 /**
  * The core of the subject it control everything in the APP
  */
 public class Application extends AppAbstract {
-
+    private int id ;
     /*
      List of Handlers
      */
-    private HashMap<Integer, DisplayHandler> listOfDisplays;
-    private HashMap<Integer, TimeHandler> listOfTime;
+
     private InputHandler userInputs;
 
-    public Application(){
-        super();
-    }
+
 
     /**
      * Describe what we should do to catch the time and send it to the display app
      */
     public void routineTimeToDisplay(){
         TimeHandler timeHandler;
-        String msg;
+        Object obj;
         Integer targetId;
 
         // read all elements
@@ -38,28 +41,50 @@ public class Application extends AppAbstract {
             timeHandler = (TimeHandler) entryTime.getValue();
             try {
                 // catch the msg
-                msg = timeHandler.readUtilCommand();
-
+                obj = timeHandler.readUtilCommandA();
+//                System.out.println("Application time " + ((LocalTime)obj).toString());
                 // resend the message
                 targetId = (Integer) entryTime.getKey();
-                sendToDisplay(msg,targetId.intValue());
+                sendToDisplay((LocalTime)obj,targetId);
+
+
             } catch (Exception e) {
-                // Do nothing because there is nothing for U
+                String msg = e.getMessage();
+                if (!( msg == NONE_RETURN)) {
+                    e.printStackTrace();
+                }
             }
 
         }
     }
 
-    public void addClock(){
+    public void addClock(ClockMode cl, Language lg, long waitingTime, FromMode fromMode,String name){
+        this.listOfDisplays.put(id,new DisplayHandler(cl,lg,name));
+        this.listOfTime.put(id,new TimeHandler(waitingTime,fromMode));
+        id++;
 
+ //       System.out.println("Sizeof listDisplays : " + this.listOfDisplays.size());
+//        System.out.println("Sizeof listTime : " + this.listOfTime.size());
+//        System.out.println("Id " + id);
     }
+
+    public static void main(String[]Args){
+        new Thread(new Application()).start();
+    }
+
 
     @Override
     protected void onCreate() {
         super.onCreate();
+        this.id = 0;
         this.listOfDisplays = new HashMap<>();
         this.listOfTime = new HashMap<>();
         this.waitingTime =10;
+
+        addClock(ClockMode.CMD,Language.FR,60000,FromMode.SYSTEM,"French_Clock" );
+        addClock(ClockMode.CMD,Language.EN,1000,FromMode.SYSTEM,"English_Clock");
+        // waiting initialization of the different handler
+
     }
 
     @Override
