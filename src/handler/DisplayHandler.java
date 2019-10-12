@@ -26,7 +26,7 @@ public class DisplayHandler extends HandlerAbstract {
         switch (this.clockMode ){
             case GRAPHIC:
  //               System.out.println("Graphic ");
-                this.timeGraphic = new TimeGraphic();
+                this.timeGraphic = new TimeGraphic(this.name);
                 break;
             case CMD:
  //               System.out.println("CMD ");
@@ -71,4 +71,14 @@ public class DisplayHandler extends HandlerAbstract {
 
         }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        switch (this.clockMode){
+            case GRAPHIC:
+                ((TimeGraphic)this.timeGraphic).closeWindow();
+                break;
+
+        }
+    }
 }

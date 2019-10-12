@@ -20,30 +20,15 @@ public class TimeGraphic implements DisplayTime  {
 	private JLabel jlabel;
 
 
-	public static void main(String[] args) {
-		
-		double time = 9000000000.0;	//time before close the window
-		
-		TimeGraphic tmp = new TimeGraphic();
-		tmp.displayTime(LocalTime.now(), Language.EN);
-		
-		long start=System.nanoTime(); 
-		while((System.nanoTime() - start) < time)
-		{
-			tmp.refreshTime(LocalTime.now(), Language.EN);
-		}
-		
-		tmp.closeWindow(tmp.window);
 
-	}
 	
 	/**
 	 * constructor
 	 */
-	public TimeGraphic()
+	public TimeGraphic(String name)
 	{	
 		window = new JFrame();
-		window.setTitle("Time");
+		window.setTitle(name);
 		
 		window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		//window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -92,13 +77,10 @@ public class TimeGraphic implements DisplayTime  {
 	}
 
 	
-	/**
-	 * 
-	 * @param window the window to close
-	 */
-	public void closeWindow(JFrame window)
+
+	public void closeWindow()
 	{
-		window.dispose();
+		this.window.dispose();
 	}
 	
 	

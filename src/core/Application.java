@@ -81,9 +81,13 @@ public class Application extends AppAbstract {
         this.listOfTime = new HashMap<>();
         this.waitingTime =10;
 
+
+        // Creation of Clocks
         addClock(ClockMode.CMD,Language.FR,60000,FromMode.SYSTEM,"French_Clock" );
         addClock(ClockMode.CMD,Language.EN,1000,FromMode.SYSTEM,"English_Clock");
         // waiting initialization of the different handler
+        addClock(ClockMode.GRAPHIC,Language.FR,60000,FromMode.SYSTEM,"French_Clock" );
+        addClock(ClockMode.GRAPHIC,Language.EN,1000,FromMode.SYSTEM,"English_Clock");
 
     }
 
