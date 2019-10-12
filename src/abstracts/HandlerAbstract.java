@@ -178,7 +178,7 @@ public abstract class HandlerAbstract extends StateAbstract {
                     readSudo = false; // stop reading the channel
                 }
 
- //               this.lastAdvertise = System.currentTimeMillis();
+                this.lastAdvertise = System.currentTimeMillis();
             }
         checkConection();
     }
