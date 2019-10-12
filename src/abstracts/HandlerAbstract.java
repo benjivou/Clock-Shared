@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public abstract class HandlerAbstract extends StateAbstract {
     public static final String NONE_RETURN="none";  // Anything to read
     public static final long LIFE_WITHOUT_ADVERTISE = 1000;
-    protected static String CLASSNAME = "StandardHandler";
+
 
     private ConcurrentLinkedQueue<AdminMsg> sudoInputCommand,sudoOutputCommand; // Channel to administration messages with the App
 
@@ -21,11 +21,11 @@ public abstract class HandlerAbstract extends StateAbstract {
     */
     private ConcurrentLinkedQueue<Object> inputsUtil,outputUtil;
     private long lastAdvertise; // the last time You receive the message to continue
-    // TODO
+
 
     public HandlerAbstract() {
         onCreate();
-        new Thread(this).start();
+
     }
 
     @Override
@@ -36,6 +36,8 @@ public abstract class HandlerAbstract extends StateAbstract {
 
         this.inputsUtil = new ConcurrentLinkedQueue<Object>() ;
         this.outputUtil = new ConcurrentLinkedQueue<Object>() ;
+
+        this.lastAdvertise = System.currentTimeMillis();
     }
 
     /**
@@ -90,7 +92,7 @@ public abstract class HandlerAbstract extends StateAbstract {
      */
     public Object readUtilCommandA() throws Exception {
         // U have nothing to read
-        if(this.outputUtil.size() == 0){
+        if(this.outputUtil.isEmpty()){
             throw new Exception(NONE_RETURN);
         }
 
@@ -104,7 +106,7 @@ public abstract class HandlerAbstract extends StateAbstract {
      */
     protected Object readUtilCommandH() throws Exception {
         // U have nothing to read
-        if(this.outputUtil.size() == 0){
+        if(this.outputUtil.isEmpty()){
             throw new Exception(NONE_RETURN);
         }
 
@@ -119,6 +121,8 @@ public abstract class HandlerAbstract extends StateAbstract {
      * @param msg
      */
     public void sendUtilCommandA(Object msg){
+        if (msg == null ) return;
+        System.out.println("msg send " + ((LocalTime)msg).toString());
         this.inputsUtil.add(msg);
     }
 
@@ -127,21 +131,50 @@ public abstract class HandlerAbstract extends StateAbstract {
      * @param msg
      */
     protected void sendUtilCommandH(Object msg){
+        System.out.println("Send message");
         this.outputUtil.add(msg);
+        System.out.println("Message Sent ");
     }
 
+    /**
+     * Finalize the thread if the handler didn't say anything
+     */
+    protected void checkConection(){
+        if ( (System.currentTimeMillis()- this.lastAdvertise) > LIFE_WITHOUT_ADVERTISE ) {
+            finalizeThread();
+            System.out.println("Thread killed");
+        }
+    }
 
     @Override
     protected void onAction() {
         super.onAction();
+        Boolean readSudo = true; // if U should read sudo channel
+        AdminMsg adminMsg;
 
-        if(this.inputsUtil.size() >0){
-            onMsgReceive();
+        Object obj = null;
+        try {
+            obj = this.readUtilCommandH();
+        } catch (Exception e) {
+            if (e.getMessage() != NONE_RETURN)
+                e.printStackTrace();
         }
+        if (obj != null)
+            onMsgReceive(obj);
 
-        if (this.sudoInputCommand.size()>0){
-            onSudoRequest(this.sudoInputCommand.peek());
-        }
+
+        // Admin command received
+        while (this.sudoInputCommand.size()>0 && readSudo ){
+
+                adminMsg = this.sudoInputCommand.poll();
+
+                if (adminMsg != AdminMsg.CONTINUE) {
+                    onSudoRequest(adminMsg);
+                    readSudo = false; // stop reading the channel
+                }
+
+                this.lastAdvertise = System.currentTimeMillis();
+            }
         checkConection();
     }
 
@@ -151,26 +184,18 @@ public abstract class HandlerAbstract extends StateAbstract {
 
 
     // When U receive a message
-    protected void onMsgReceive(){};
+    protected void onMsgReceive(Object obj){};
 
     // When U receipt a command
     protected void onSudoRequest(AdminMsg msg){
         // if U receive a message of stop
-        if(msg.equals(AdminMsg.OFF) ){
+        if(msg == AdminMsg.OFF  ){
             finalizeThread();
         }
         this.lastAdvertise = System.currentTimeMillis();
     };
 
-    /**
-     * Finalize the thread if the handler didn't say anything
-     */
-    protected void checkConection(){
-        if ( this.lastAdvertise-System.currentTimeMillis() > LIFE_WITHOUT_ADVERTISE ) {
-            finalizeThread();
-            System.out.println("Thread killed");
-        }
-    }
+
 
 
 }

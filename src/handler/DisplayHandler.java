@@ -1,6 +1,8 @@
 package handler;
 
 import abstracts.HandlerAbstract;
+import display.DisplayTime;
+import display.TimeCmd;
 import display.TimeGraphic;
 import handler.message.ClockMode;
 import handler.message.Language;
@@ -11,7 +13,7 @@ public class DisplayHandler extends HandlerAbstract {
 
     private ClockMode clockMode;
     private Language language;
-    private TimeGraphic timeGraphic;
+    private DisplayTime timeGraphic;
 
     public DisplayHandler(ClockMode clockMode, Language language){
         super();
@@ -19,10 +21,17 @@ public class DisplayHandler extends HandlerAbstract {
         this.language = language;
 
         // if We need a graphic Panel
-        if ( this.clockMode == ClockMode.GRAPHIC){
-            this.timeGraphic = new TimeGraphic();
-            refreshTime(LocalTime.now());
+        switch (this.clockMode ){
+            case GRAPHIC:
+                this.timeGraphic = new TimeGraphic();
+                break;
+            case CMD:
+                this.timeGraphic = new TimeCmd();
+                break;
+
         }
+        System.out.println("Display handler");
+
     }
 
     private void refreshTime(LocalTime localTime){
@@ -32,23 +41,26 @@ public class DisplayHandler extends HandlerAbstract {
     @Override
     protected void onCreate() {
         super.onCreate();
-
-
-
     }
 
     @Override
-    protected void onMsgReceive() {
-        super.onMsgReceive();
-        try {
-            // retrieve message from the queue
-            LocalTime lt  =(LocalTime)this.readUtilCommandH();
-            switch (this.clockMode){
-                case GRAPHIC:
-                    this.timeGraphic.displayTime(lt,this.language);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    protected void onMsgReceive(Object obj) {
+        super.onMsgReceive(obj);
+
+        System.out.println("Local time received to display");
+        // retrieve message from the queue
+        LocalTime lt  =(LocalTime)obj;
+        System.out.println("Local time received to display localtime stored");
+        switch (this.clockMode){
+            case GRAPHIC:
+                ((TimeGraphic)this.timeGraphic).displayTime(lt,this.language);
+                break;
+            case CMD:
+                ((TimeCmd)this.timeGraphic).displayTime(lt,this.language);
+                break;
         }
-    }
+
+
+        }
+
 }

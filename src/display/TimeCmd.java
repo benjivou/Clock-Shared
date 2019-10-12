@@ -33,8 +33,7 @@ public class TimeCmd implements DisplayTime {
 	 */
 	@Override
 	public void displayTime(LocalTime hour, Language lg) {
-		
-		
+
 		if(lg == Language.FR)	//method 1
 		{
 			System.out.println(hour.getHour() + "h" +

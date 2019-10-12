@@ -62,7 +62,8 @@ public abstract class AppAbstract extends StateAbstract {
      * @param displayId
      */
     protected void sendToDisplay(Object obj, int displayId){
-        DisplayHandler displayHandler = this.listOfDisplays.get(displayId);
+        DisplayHandler displayHandler = this.listOfDisplays.get(displayId );
+
         displayHandler.sendUtilCommandA(obj);
     }
 

@@ -8,7 +8,7 @@ import static timecatcher.TimeCatcher.getTimeLocal;
 
 public class TimeHandler extends HandlerAbstract {
     private FromMode mode;
-    static protected String CLASSNAME = "TimeHandler";
+
     public TimeHandler(long waitTime, FromMode mode) {
         super();
         this.waitingTime = waitTime;
@@ -20,7 +20,7 @@ public class TimeHandler extends HandlerAbstract {
     @Override
     protected void onAction() {
         super.onAction();
-
+        System.out.println("TimeHandler Action");
         // it depend of the mode selected before
         switch (this.mode){
             case SYSTEM:
@@ -30,5 +30,11 @@ public class TimeHandler extends HandlerAbstract {
                 System.err.println("Undefined Mode");
         }
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("TimeHandler Stop pause");
     }
 }
