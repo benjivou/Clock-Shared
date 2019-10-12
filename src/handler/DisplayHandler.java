@@ -23,14 +23,16 @@ public class DisplayHandler extends HandlerAbstract {
         // if We need a graphic Panel
         switch (this.clockMode ){
             case GRAPHIC:
+ //               System.out.println("Graphic ");
                 this.timeGraphic = new TimeGraphic();
                 break;
             case CMD:
+ //               System.out.println("CMD ");
                 this.timeGraphic = new TimeCmd();
                 break;
 
         }
-        System.out.println("Display handler");
+   //     System.out.println("Display handler");
 
     }
 
@@ -41,25 +43,29 @@ public class DisplayHandler extends HandlerAbstract {
     @Override
     protected void onCreate() {
         super.onCreate();
+
     }
 
     @Override
     protected void onMsgReceive(Object obj) {
         super.onMsgReceive(obj);
 
-        System.out.println("Local time received to display");
+   //     System.out.println("Local time received to display");
         // retrieve message from the queue
         LocalTime lt  =(LocalTime)obj;
-        System.out.println("Local time received to display localtime stored");
+        System.out.println(lt);
+
         switch (this.clockMode){
             case GRAPHIC:
-                ((TimeGraphic)this.timeGraphic).displayTime(lt,this.language);
+                this.timeGraphic.displayTime(lt,this.language);
                 break;
             case CMD:
-                ((TimeCmd)this.timeGraphic).displayTime(lt,this.language);
+
+                this.timeGraphic.displayTime(lt,this.language);
+ //               System.out.println("CMD Display");
                 break;
         }
-
+ //       System.out.println("Local time received to display localtime stored");
 
         }
 

@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class HandlerAbstract extends StateAbstract {
     public static final String NONE_RETURN="none";  // Anything to read
-    public static final long LIFE_WITHOUT_ADVERTISE = 1000;
+    public static final long LIFE_WITHOUT_ADVERTISE = 2000;
 
 
     private ConcurrentLinkedQueue<AdminMsg> sudoInputCommand,sudoOutputCommand; // Channel to administration messages with the App
@@ -106,12 +106,14 @@ public abstract class HandlerAbstract extends StateAbstract {
      */
     protected Object readUtilCommandH() throws Exception {
         // U have nothing to read
-        if(this.outputUtil.isEmpty()){
+
+
+        if(this.inputsUtil.isEmpty() ){
             throw new Exception(NONE_RETURN);
         }
-
+        Object obj = this.inputsUtil.poll();
         // return msg
-        return this.outputUtil.poll();
+        return obj;
 
     }
 
@@ -121,8 +123,8 @@ public abstract class HandlerAbstract extends StateAbstract {
      * @param msg
      */
     public void sendUtilCommandA(Object msg){
-        if (msg == null ) return;
-        System.out.println("msg send " + ((LocalTime)msg).toString());
+
+
         this.inputsUtil.add(msg);
     }
 
@@ -131,9 +133,9 @@ public abstract class HandlerAbstract extends StateAbstract {
      * @param msg
      */
     protected void sendUtilCommandH(Object msg){
-        System.out.println("Send message");
+
         this.outputUtil.add(msg);
-        System.out.println("Message Sent ");
+
     }
 
     /**
@@ -159,8 +161,11 @@ public abstract class HandlerAbstract extends StateAbstract {
             if (e.getMessage() != NONE_RETURN)
                 e.printStackTrace();
         }
-        if (obj != null)
+
+        if (obj != null )
             onMsgReceive(obj);
+
+
 
 
         // Admin command received
@@ -173,7 +178,7 @@ public abstract class HandlerAbstract extends StateAbstract {
                     readSudo = false; // stop reading the channel
                 }
 
-                this.lastAdvertise = System.currentTimeMillis();
+ //               this.lastAdvertise = System.currentTimeMillis();
             }
         checkConection();
     }

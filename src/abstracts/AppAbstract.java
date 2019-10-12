@@ -63,8 +63,8 @@ public abstract class AppAbstract extends StateAbstract {
      */
     protected void sendToDisplay(Object obj, int displayId){
         DisplayHandler displayHandler = this.listOfDisplays.get(displayId );
-
-        displayHandler.sendUtilCommandA(obj);
+        if (obj != null)
+            displayHandler.sendUtilCommandA(obj);
     }
 
     protected void sendBroadcastAdmin(AdminMsg msg){

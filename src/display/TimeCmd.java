@@ -36,8 +36,7 @@ public class TimeCmd implements DisplayTime {
 
 		if(lg == Language.FR)	//method 1
 		{
-			System.out.println(hour.getHour() + "h" +
-			hour.getMinute());
+			System.out.println(hour.getHour() + "h" + hour.getMinute());
 		}
 		
 		if(lg == Language.EN)	//method 2

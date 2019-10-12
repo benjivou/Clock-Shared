@@ -13,14 +13,14 @@ public class TimeHandler extends HandlerAbstract {
         super();
         this.waitingTime = waitTime;
         this.mode = mode;
-        System.out.println("TimeHandler created");
+  //      System.out.println("TimeHandler created");
 
     }
 
     @Override
     protected void onAction() {
         super.onAction();
-        System.out.println("TimeHandler Action");
+ //       System.out.println("TimeHandler Action");
         // it depend of the mode selected before
         switch (this.mode){
             case SYSTEM:
@@ -35,6 +35,6 @@ public class TimeHandler extends HandlerAbstract {
     @Override
     protected void onPause() {
         super.onPause();
-        System.out.println("TimeHandler Stop pause");
+ //       System.out.println("TimeHandler Stop pause");
     }
 }

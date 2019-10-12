@@ -42,10 +42,10 @@ public class Application extends AppAbstract {
             try {
                 // catch the msg
                 obj = timeHandler.readUtilCommandA();
-                System.out.println("Application time " + ((LocalTime)obj).toString());
+//                System.out.println("Application time " + ((LocalTime)obj).toString());
                 // resend the message
                 targetId = (Integer) entryTime.getKey();
-                sendToDisplay(obj,targetId);
+                sendToDisplay((LocalTime)obj,targetId);
 
 
             } catch (Exception e) {
@@ -63,9 +63,9 @@ public class Application extends AppAbstract {
         this.listOfTime.put(id,new TimeHandler(waitingTime,fromMode));
         id++;
 
-        System.out.println("Sizeof listDisplays : " + this.listOfDisplays.size());
-        System.out.println("Sizeof listTime : " + this.listOfTime.size());
-        System.out.println("Id " + id);
+ //       System.out.println("Sizeof listDisplays : " + this.listOfDisplays.size());
+//        System.out.println("Sizeof listTime : " + this.listOfTime.size());
+//        System.out.println("Id " + id);
     }
 
     public static void main(String[]Args){
