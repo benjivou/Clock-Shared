@@ -30,7 +30,7 @@ public class DisplayHandler extends HandlerAbstract {
                 break;
             case CMD:
  //               System.out.println("CMD ");
-                this.timeGraphic = new TimeCmd();
+                this.timeGraphic = new TimeCmd(this.name);
                 break;
 
         }
@@ -55,7 +55,7 @@ public class DisplayHandler extends HandlerAbstract {
    //     System.out.println("Local time received to display");
         // retrieve message from the queue
         LocalTime lt  =(LocalTime)obj;
-        System.out.print(this.name + " : ");
+
 
         switch (this.clockMode){
             case GRAPHIC:

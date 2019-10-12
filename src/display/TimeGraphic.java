@@ -101,6 +101,7 @@ public class TimeGraphic implements DisplayTime  {
 	 */
 	public void displayTime(LocalTime hour, Language lg)
 	{
+		
 		if(lg == Language.FR)	//method 1
 		{
 			jlabel.setText(Integer.toString(hour.getHour()) + "h" + 

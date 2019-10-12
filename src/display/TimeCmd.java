@@ -5,14 +5,10 @@ import handler.message.Language;
 import java.time.LocalTime;
 
 public class TimeCmd implements DisplayTime {
-	
-	public static void main(String[] args)
-	{
-		TimeCmd cmd = new TimeCmd();
-		cmd.displayTime(LocalTime.now(), Language.EN);
+	private String name;
 
-		while(true)
-			cmd.refreshTime(LocalTime.now(), Language.EN);
+	public TimeCmd(String name){
+		this.name = name;
 	}
 
 	
@@ -36,18 +32,18 @@ public class TimeCmd implements DisplayTime {
 
 		if(lg == Language.FR)	//method 1
 		{
-			System.out.println(hour.getHour() + "h" + hour.getMinute());
+			System.out.println(this.name+ " : "+ hour.getHour() + "h" + hour.getMinute());
 		}
 		
 		if(lg == Language.EN)	//method 2
 		{
 			if(hour.getHour() >= 0 && hour.getHour() <= 12)
 			{
-				System.out.println(hour.getHour() + "am" + ":" +hour.getMinute() + " " + hour.getSecond() + "s");
+				System.out.println(this.name + " : " + hour.getHour() + "am" + ":" +hour.getMinute() + " " + hour.getSecond() + "s");
 			}
 			else
 			{
-				System.out.println(hour.getHour() - 12 + "pm" + ":" + hour.getMinute() + " " + hour.getSecond() + "s");
+				System.out.println(this.name + " : "+ (hour.getHour() - 12) + "pm" + ":" + hour.getMinute() + " " + hour.getSecond() + "s");
 			}
 		}
 		
