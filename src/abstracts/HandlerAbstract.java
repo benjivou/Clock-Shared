@@ -1,15 +1,17 @@
 package abstracts;
 
 
+import com.sun.scenario.effect.impl.state.AccessHelper;
 import handler.message.AdminMsg;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class HandlerAbstract extends StateAbstract {
     public static final String NONE_RETURN="none";  // Anything to read
-
+    public static final long LIFE_WITHOUT_ADVERTISE = 1000;
     protected static String CLASSNAME = "StandardHandler";
 
     private ConcurrentLinkedQueue<AdminMsg> sudoInputCommand,sudoOutputCommand; // Channel to administration messages with the App
@@ -18,16 +20,11 @@ public abstract class HandlerAbstract extends StateAbstract {
     Channel to exchange data infos like serialized TimeHandlers  objects between the Application and the TimeHandler
     */
     private ConcurrentLinkedQueue<Object> inputsUtil,outputUtil;
-    private LocalTime lastAdvertise; // the last time You receive the message to continue
+    private long lastAdvertise; // the last time You receive the message to continue
     // TODO
 
     public HandlerAbstract() {
-
-
-
-
         onCreate();
-
         new Thread(this).start();
     }
 
@@ -46,6 +43,7 @@ public abstract class HandlerAbstract extends StateAbstract {
      * @param msg
      */
     public void sendAdminCommandA(AdminMsg msg){
+
         this.sudoInputCommand.add(msg);
     }
     /**
@@ -53,6 +51,7 @@ public abstract class HandlerAbstract extends StateAbstract {
      * @param msg
      */
     protected void sendAdminCommandH(AdminMsg msg){
+
         this.sudoOutputCommand.add(msg);
     }
 
@@ -143,6 +142,7 @@ public abstract class HandlerAbstract extends StateAbstract {
         if (this.sudoInputCommand.size()>0){
             onSudoRequest(this.sudoInputCommand.peek());
         }
+        checkConection();
     }
 
     /**
@@ -159,10 +159,18 @@ public abstract class HandlerAbstract extends StateAbstract {
         if(msg.equals(AdminMsg.OFF) ){
             finalizeThread();
         }
-        if(msg.equals(AdminMsg.CONTINUE)){
-            this.lastAdvertise = LocalTime.now();
-        }
+        this.lastAdvertise = System.currentTimeMillis();
     };
+
+    /**
+     * Finalize the thread if the handler didn't say anything
+     */
+    protected void checkConection(){
+        if ( this.lastAdvertise-System.currentTimeMillis() > LIFE_WITHOUT_ADVERTISE ) {
+            finalizeThread();
+            System.out.println("Thread killed");
+        }
+    }
 
 
 }
