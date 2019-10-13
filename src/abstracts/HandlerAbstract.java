@@ -1,12 +1,8 @@
 package abstracts;
 
 
-import com.sun.scenario.effect.impl.state.AccessHelper;
 import handler.message.AdminMsg;
 
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class HandlerAbstract extends StateAbstract {
@@ -141,7 +137,7 @@ public abstract class HandlerAbstract extends StateAbstract {
     /**
      * Finalize the thread if the handler didn't say anything
      */
-    protected void checkConection(){
+    protected void checkConnection(){
         if ( (System.currentTimeMillis()- this.lastAdvertise) > LIFE_WITHOUT_ADVERTISE ) {
             finalizeThread();
             System.out.println("Thread killed");
@@ -180,7 +176,7 @@ public abstract class HandlerAbstract extends StateAbstract {
 
                 this.lastAdvertise = System.currentTimeMillis();
             }
-        checkConection();
+        checkConnection();
     }
 
     /**

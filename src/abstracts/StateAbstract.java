@@ -34,12 +34,12 @@ public abstract class StateAbstract implements Runnable{
      */
     // when U create the handler
     protected void onCreate(){
-        //System.out.println("onCreate" + CLASSNAME);
+
         this.work = true;
         this.waitingTime = WAITING_TIME;
     };
 
-    // the acction to reapeat during the execution
+    // the action to repeat during the execution
     protected void onAction(){
         //System.out.println("onAction" );
 
@@ -63,7 +63,7 @@ public abstract class StateAbstract implements Runnable{
 
     }
 
-    // go to the on Destroy statment;
+    // go to the on Destroy statement;
     protected void finalizeThread(){
         System.out.println("Finalize Handler");
         this.work =false;

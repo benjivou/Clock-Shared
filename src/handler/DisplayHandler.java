@@ -38,9 +38,7 @@ public class DisplayHandler extends HandlerAbstract {
 
     }
 
-    private void refreshTime(LocalTime localTime){
-        this.timeGraphic.refreshTime(localTime,this.language);
-    }
+
 
     @Override
     protected void onCreate() {
@@ -52,7 +50,7 @@ public class DisplayHandler extends HandlerAbstract {
     protected void onMsgReceive(Object obj) {
         super.onMsgReceive(obj);
 
-   //     System.out.println("Local time received to display");
+
         // retrieve message from the queue
         LocalTime lt  =(LocalTime)obj;
 

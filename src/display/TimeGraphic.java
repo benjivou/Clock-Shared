@@ -84,15 +84,7 @@ public class TimeGraphic implements DisplayTime  {
 	}
 	
 	
-	/**
-	 * refresh the hour
-	 * @param hour
-	 * @param lg
-	 */
-	public void refreshTime(LocalTime hour, Language lg)
-	{
-		displayTime(hour, lg);
-	}
+
 	
 	
 	/**

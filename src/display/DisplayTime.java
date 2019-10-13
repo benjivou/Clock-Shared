@@ -17,10 +17,7 @@ public interface DisplayTime {
 	 */
 	public void displayTime(LocalTime hour, Language lg);
 	
-	/**
-	 *  @param hour
-	 * @param lg*/
-	public void refreshTime(LocalTime hour, Language lg);
+
 	
 	
 }
