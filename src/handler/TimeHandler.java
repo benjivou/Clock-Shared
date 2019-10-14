@@ -32,9 +32,5 @@ public class TimeHandler extends HandlerAbstract {
 
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
 
-    }
 }
