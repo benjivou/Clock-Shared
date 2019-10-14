@@ -41,14 +41,11 @@ public class DisplayHandler extends HandlerAbstract {
         // retrieve message from the queue
         LocalTime lt  =(LocalTime)obj;
 
-        switch (this.clockMode){
-            case GRAPHIC:
-                this.timeGraphic.displayTime(lt,this.language);
-                break;
-            case CMD:
-                this.timeGraphic.displayTime(lt,this.language);
-                break;
-        }
+        
+        this.timeGraphic.displayTime(lt,this.language);
+
+           
+        
     }
 
     @Override
