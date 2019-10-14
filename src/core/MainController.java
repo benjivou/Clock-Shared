@@ -18,7 +18,7 @@ import static abstracts.HandlerAbstract.NONE_RETURN;
 /**
  * The core of the subject it control everything in the APP
  */
-public class Application extends AppAbstract {
+public class MainController extends AppAbstract {
     private int id ;
     /*
      List of Handlers
@@ -68,9 +68,7 @@ public class Application extends AppAbstract {
 //        System.out.println("Id " + id);
     }
 
-    public static void main(String[]Args){
-        new Thread(new Application()).start();
-    }
+
 
 
     @Override

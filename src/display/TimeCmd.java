@@ -1,52 +1,41 @@
 package display;
 
+import handler.message.Language;
+
 import java.time.LocalTime;
 
 public class TimeCmd implements DisplayTime {
-	
-	public static void main(String[] args)
-	{
-		TimeCmd cmd = new TimeCmd();
-		cmd.displayTime(LocalTime.now(), 1);
-		
-		while(true)
-			cmd.refreshTime(LocalTime.now(), 1);
+	private String name;
+
+	public TimeCmd(String name){
+		this.name = name;
 	}
+
 	
-	
-	/**
-	 * refresh the hour
-	 * @param hour
-	 * @param Id
-	 */
-	public void refreshTime(LocalTime hour, int Id)
-	{
-		displayTime(hour, Id);
-	}
+
 	
 	
 	/**
 	 * @param hour the hour to display
+	 * @param lg
 	 */
 	@Override
-	public void displayTime(LocalTime hour, int Id) {
-		
-		
-		if(Id == 0)	//method 1
+	public void displayTime(LocalTime hour, Language lg) {
+
+		if(lg == Language.FR)	//method 1
 		{
-			System.out.println(hour.getHour() + "h" +
-			hour.getMinute());
+			System.out.println(this.name+ " : "+ hour.getHour() + "h" + hour.getMinute());
 		}
 		
-		if(Id == 1)	//method 2
+		if(lg == Language.EN)	//method 2
 		{
 			if(hour.getHour() >= 0 && hour.getHour() <= 12)
 			{
-				System.out.println(hour.getHour() + "am" + ":" +hour.getMinute() + " " + hour.getSecond() + "s");
+				System.out.println(this.name + " : " + hour.getHour() + "am" + ":" +hour.getMinute() + " " + hour.getSecond() + "s");
 			}
 			else
 			{
-				System.out.println(hour.getHour() - 12 + "pm" + ":" + hour.getMinute() + " " + hour.getSecond() + "s");
+				System.out.println(this.name + " : "+ (hour.getHour() - 12) + "pm" + ":" + hour.getMinute() + " " + hour.getSecond() + "s");
 			}
 		}
 		

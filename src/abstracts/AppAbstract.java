@@ -8,6 +8,8 @@ import handler.message.AdminMsg;
 import java.util.HashMap;
 import java.util.Map;
 
+import static abstracts.HandlerAbstract.NONE_RETURN;
+
 public abstract class AppAbstract extends StateAbstract {
     /*
      List of Handlers
@@ -15,6 +17,14 @@ public abstract class AppAbstract extends StateAbstract {
     protected HashMap<Integer, DisplayHandler> listOfDisplays;
     protected HashMap<Integer, TimeHandler> listOfTime;
     protected InputHandler userInputs;
+
+    @Override
+    protected void onCreate() {
+        super.onCreate();
+        this.listOfDisplays = new HashMap<>();
+        this.listOfTime = new HashMap<>();
+        this.userInputs = new InputHandler();
+    }
 
     @Override
     protected void onAction() {
@@ -29,10 +39,13 @@ public abstract class AppAbstract extends StateAbstract {
     protected void onRoutineAdmin(){
         try {
             // if U have something to do
-            onAdminInputs(this.userInputs.readAdminCommand());
+            onAdminInputs(this.userInputs.readAdminCommandA());
         } catch (Exception e) {
-            e.printStackTrace();
+           if(! e.getMessage().equals(NONE_RETURN)) {
+               e.printStackTrace();
+           }
         }
+        sendBroadcastAdmin(AdminMsg.CONTINUE);
     }
 
     /**
@@ -45,18 +58,16 @@ public abstract class AppAbstract extends StateAbstract {
 
     /**
      * Send a message to the the good display thread
-     * @param msg
+     * @param obj
      * @param displayId
      */
-    protected void sendToDisplay(String msg, int displayId){
-        DisplayHandler displayHandler = this.listOfDisplays.get(displayId);
-        displayHandler.sendUtilCommand(msg);
+    protected void sendToDisplay(Object obj, int displayId){
+        DisplayHandler displayHandler = this.listOfDisplays.get(displayId );
+        if (obj != null)
+            displayHandler.sendUtilCommandA(obj);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
+    protected void sendBroadcastAdmin(AdminMsg msg){
         HandlerAbstract handler;
         DisplayHandler displayHandler;
 
@@ -65,16 +76,23 @@ public abstract class AppAbstract extends StateAbstract {
         // time
         for (Map.Entry entryTime : this.listOfTime.entrySet()){
             handler = (HandlerAbstract) entryTime.getValue();
-            handler.sendAdminCommand(AdminMsg.OFF);
+            handler.sendAdminCommandA(msg);
         }
 
         // Display
         for (Map.Entry entryTime : this.listOfDisplays.entrySet()){
             handler = (HandlerAbstract) entryTime.getValue();
-            handler.sendAdminCommand(AdminMsg.OFF);
+            handler.sendAdminCommandA(msg);
         }
 
         // Inputs
-        this.userInputs.sendAdminCommand(AdminMsg.OFF);
+        this.userInputs.sendAdminCommandA(msg);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        sendBroadcastAdmin(AdminMsg.OFF);
     }
 }

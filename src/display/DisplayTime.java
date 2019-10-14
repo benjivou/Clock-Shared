@@ -1,5 +1,7 @@
 package display;
 
+import handler.message.Language;
+
 import java.time.LocalTime;
 
 
@@ -11,15 +13,11 @@ public interface DisplayTime {
 	/**
 	 * @brief display the hour
 	 * @param hour the hour to display
+	 * @param lg
 	 */
-	public void displayTime(LocalTime hour, int Id);
+	public void displayTime(LocalTime hour, Language lg);
 	
-	/**
-	 * 
-	 * @param hour
-	 * @param Id
-	 */
-	public void refreshTime(LocalTime hour, int Id);
+
 	
 	
 }
