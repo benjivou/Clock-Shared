@@ -86,7 +86,14 @@ public class MainController extends AppAbstract {
         // waiting initialization of the different handler
         addClock(ClockMode.GRAPHIC,Language.FR,60000,FromMode.SYSTEM,"French_Clock" );
         addClock(ClockMode.GRAPHIC,Language.EN,1000,FromMode.SYSTEM,"English_Clock");
-
+        
+        
+        //add for server communication
+        addClock(ClockMode.CMD,Language.FR,60000,FromMode.WEB,"French_Clock_server");
+        addClock(ClockMode.CMD,Language.EN,1000,FromMode.WEB,"English_Clock_server");
+        
+        addClock(ClockMode.GRAPHIC,Language.FR,60000,FromMode.WEB,"French_Clock_server" );
+        addClock(ClockMode.GRAPHIC,Language.EN,1000,FromMode.WEB,"English_Clock_server");
     }
 
     @Override

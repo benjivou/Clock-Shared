@@ -1,5 +1,11 @@
 package core;
 
+import static abstracts.HandlerAbstract.NONE_RETURN;
+
+import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.Map;
+
 import abstracts.AppAbstract;
 import handler.DisplayHandler;
 import handler.InputHandler;
@@ -8,12 +14,8 @@ import handler.message.AdminMsg;
 import handler.message.ClockMode;
 import handler.message.FromMode;
 import handler.message.Language;
-
-import java.time.LocalTime;
-import java.util.HashMap;
-import java.util.Map;
-
-import static abstracts.HandlerAbstract.NONE_RETURN;
+import server.Server;
+import timecatcher.TimeCatcherServer;
 
 /**
  * The core of the subject it control everything in the APP
@@ -69,50 +71,18 @@ public class Application extends AppAbstract {
     }
 
     public static void main(String[]Args){
-        new Thread(new Application()).start();
-    }
-
-
-    @Override
-    protected void onCreate() {
-        super.onCreate();
-        this.id = 0;
-        this.listOfDisplays = new HashMap<>();
-        this.listOfTime = new HashMap<>();
-        this.waitingTime =10;
-
-
-        // Creation of Clocks
-        addClock(ClockMode.CMD,Language.FR,60000,FromMode.SYSTEM,"French_Clock" );
-        addClock(ClockMode.CMD,Language.EN,1000,FromMode.SYSTEM,"English_Clock");
-        // waiting initialization of the different handler
-        addClock(ClockMode.GRAPHIC,Language.FR,60000,FromMode.SYSTEM,"French_Clock" );
-        addClock(ClockMode.GRAPHIC,Language.EN,1000,FromMode.SYSTEM,"English_Clock");
-
-    }
-
-    @Override
-    protected void onAction() {
-        super.onAction();
-
-        // Catch all Hours U receive
-        routineTimeToDisplay();
-
-    }
-
-    @Override
-    protected void onAdminInputs(AdminMsg msg) {
-        super.onAdminInputs(msg);
-        switch (msg){
-            case OFF:
-                // go to onDestroy statement
-                finalizeThread();
-                break;
-            case ON:
-                break;
-            case WAIT:
-                break;
-        }
+    	
+    	
+        new Thread(new MainController()).start();
+        
+        
+		/*try {
+			TimeCatcherServer test = new TimeCatcherServer();
+			System.out.println("TEST " + test.getTime());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
     }
 
 }
