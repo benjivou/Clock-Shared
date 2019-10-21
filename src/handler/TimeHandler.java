@@ -35,9 +35,13 @@ public class TimeHandler extends HandlerAbstract {
         super.onAction();
 
         // it depend of the mode selected before
-      
-        this.sendUtilCommandH(LocalTime.now());
-        
+
+        try {
+            this.sendUtilCommandH(this.timecatcher.getTime());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
