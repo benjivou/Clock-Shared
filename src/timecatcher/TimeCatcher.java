@@ -8,6 +8,6 @@ public interface TimeCatcher {
 	 * 
 	 * @return the time
 	 */
-	public LocalTime getTime();
+	public LocalTime getTime() throws ClassNotFoundException;
 
 }
