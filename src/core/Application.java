@@ -72,6 +72,7 @@ public class Application extends AppAbstract {
 
     public static void main(String[]Args){
     	
+    	new Thread(new Server()).start(); //lance le serveur
     	
         new Thread(new MainController()).start();
         

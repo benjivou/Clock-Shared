@@ -8,17 +8,17 @@ import java.net.ServerSocket;
 import java.net.Socket; 
 import java.time.LocalTime; 
  
-public class Server { 
+public class Server implements Runnable { 
 	 
 	private ServerSocket ss; 
 	private Socket s2; 
 	private ObjectOutputStream oos; 
 	 
-	public static void main(String[] args) 
+	/*public static void main(String[] args) 
 	{ 
 		Server server = new Server(); 
-		server.serverConnection(); 
-	}
+		server.serverConnection();
+	}*/
 	 
 	public Server() 
 	{ 
@@ -27,36 +27,41 @@ public class Server {
 		oos = null; 
 	} 
 	
-	
-	
-	 
-	public void serverConnection() 
+
+
+
+
+	public void /*serverConnection*/run() 
 	{ 
 		try { 
-			ServerSocket ss = new ServerSocket(80); 
+			ss = new ServerSocket(80); 
 			System.out.println("wait for connection"); 
-			 
-			Socket s2 = ss.accept(); 
-			 
-			 
-			//InputStream is = s2.getInputStream();	//read data send by the client 
-			//OutputStream os = s2.getOutputStream();	//allow to send an answer to the client 
-			 
-			LocalTime time = LocalTime.now(); 
-			 
-			ObjectOutputStream oos = new ObjectOutputStream(s2.getOutputStream()); 
-			oos.writeObject(time);  
-			 
-			//int nb = is.read(); 
-			 
-			//os.write(nb);	//send the answer 
-			 
-			 
-			s2.close();	//close the connection 
+			
+			
+			ss.setSoTimeout(100000);
+			while(true)
+			{
+				s2 = ss.accept(); 
+				 
+				
+				ss.setSoTimeout(100000);
+				LocalTime time = LocalTime.now(); 
+				 
+				ObjectOutputStream oos = new ObjectOutputStream(s2.getOutputStream()); 
+				oos.writeObject(time);  
+				 
+				
+				s2.close();	//close the connection 
+			
+			}
+			
+			//ss.close();
 			 
 		} catch (IOException e) { 
 			e.printStackTrace(); 
 		} 
  
-	} 
+	}
+
+		 
 }
