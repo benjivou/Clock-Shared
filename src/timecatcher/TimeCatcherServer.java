@@ -41,17 +41,17 @@ public class TimeCatcherServer implements TimeCatcher {
 	@Override
 	public LocalTime getTime() throws ClassNotFoundException {
 		
-		Scanner sc1 = new Scanner(System.in); //the user enter the port number
+		/*Scanner sc1 = new Scanner(System.in); //the user enter the port number
 		System.out.println("Enter the port number");
 		int port = sc1.nextInt();
 		
 		Scanner sc2 = new Scanner(System.in);
 		System.out.println("Enter the address");
-		String address = sc2.next();
+		String address = sc2.next();*/
 		
 		
 		try {
-			Socket s1 = new Socket(address, port);
+			s1 = new Socket("localhost", 80);
 			ois = new ObjectInputStream(s1.getInputStream());
 			
 			hour = (LocalTime) ois.readObject();

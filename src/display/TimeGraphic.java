@@ -30,7 +30,7 @@ public class TimeGraphic implements DisplayTime  {
 		window = new JFrame();
 		window.setTitle(name);
 		
-		window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		window.setSize(400, 100);
 		//window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		

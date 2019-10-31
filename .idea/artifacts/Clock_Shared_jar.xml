@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Clock-Shared:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Clock_Shared_jar</output-path>
+    <root id="archive" name="Clock-Shared.jar">
+      <element id="module-output" name="Clock-Shared" />
+    </root>
+  </artifact>
+</component>
